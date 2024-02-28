@@ -1,0 +1,12 @@
+version: "3.1"
+
+services:
+    db-detran:
+        image: postgres:alpine
+        ports:
+            - "5432:5432"
+        container_name: detran-upf-db
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: postgres
