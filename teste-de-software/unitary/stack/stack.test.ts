@@ -9,26 +9,26 @@ describe('Stack', () => {
         stack = new Stack();
     })
 
-    it('should is empty', () => {
+    it('deve estar vazio', () => {
         expect(stack.isEmpty()).toBe(true);
     })
 
-    it('should is not empty', () => {
+    it('não deve estar vazio', () => {
         stack.push(1);
         expect(stack.isEmpty()).toBe(false);
     })
 
-    it('should be possible to have 3 elements in the array', () => {
+    it('deve ser possível ter 3 elementos dentro do array', () => {
         stack.push(1);
         stack.push(2);
         stack.push(3);
         expect(stack.size()).toBe(3);
     })
 
-    it('should stack except empty stack when popping', () => {
+    it('stack com exceção de stack vazia ao desempilhar', () => {
         stack.push(10);
         stack.pop();
-        expect(() => stack.pop()).toThrowError('Stack is empty');
+        expect(() => stack.pop()).toThrowError('Stack é vazia');
     })
 })
 

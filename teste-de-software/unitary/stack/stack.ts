@@ -15,7 +15,7 @@ export class Stack {
 
     pop(): number {
         if(this.isEmpty()) {
-            throw new Error('Stack is empty')
+            throw new Error('Stack é vazia')
         }
 
         return this.items.pop() as number
