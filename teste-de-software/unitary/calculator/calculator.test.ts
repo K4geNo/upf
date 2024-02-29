@@ -9,23 +9,23 @@ describe('Calculator', () => {
         calculator = new Calculator()
     })
 
-    it('should add 2 numbers', () => {
+    it('deve somar dois números', () => {
         expect(calculator.sum(1, 2)).toBe(3)
     })
 
-    it('should subtract 2 numbers', () => {
+    it('deve subtrair dois números', () => {
         expect(calculator.subtract(5, 2)).toBe(3)
     })
 
-    it('should multiply 2 numbers', () => {
+    it('deve multiplar dois números', () => {
         expect(calculator.multiply(2, 3)).toBe(6)
     })
 
-    it('should divide 2 numbers', () => {
+    it('deve dividir dois números', () => {
         expect(calculator.divide(10, 2)).toBe(5)
     })
 
-    it('should not be possible to divide by zero', () => {
-        expect(() => calculator.divide(0, 0)).toThrowError('Division by zero')
+    it('não deve ser possível dividir por zero', () => {
+        expect(() => calculator.divide(0, 0)).toThrowError('Divisão por zero')
     })
 });
