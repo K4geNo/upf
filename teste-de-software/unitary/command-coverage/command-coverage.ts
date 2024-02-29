@@ -7,6 +7,6 @@ export class CommandCoverage {
             }
         }
 
-        return x + y
+        return [x, y]
     }
 }
