@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pessoa {
+  id                 String          @id @default(uuid())
+  nome_pessoa        String
+  cpf                String          @unique
+  descricao_endereco String?
+  data_nascimento    DateTime
+  telefone           Int?
+  email              String?
+  pcd                Boolean
+  cnh                Cnh[]
+  veiculo_pessoa     VeiculoPessoa[]
+  infracoes          Infracoes[]
+}
+
+model Cnh {
+  numero    Int      @id
+  userId    String
+  categoria String
+  validade  DateTime
+  pontos    Int
+  pessoa    Pessoa   @relation(fields: [userId], references: [id])
+}
+
+model Veiculo {
+  id             String          @id @default(uuid())
+  marca          String
+  placa          String
+  cor            String
+  ano_fabricacao Int
+  modelo         String
+  tipo           Int
+  ipva_quitado   Int
+  ipva_valor     Int
+  Column1        Int
+  ipva           Ipva[]
+  veiculo_pessoa VeiculoPessoa[]
+  infracoes      Infracoes[]
+}
+
+model Ipva {
+  id                  String   @id @default(uuid())
+  vehicleId           String
+  valor               Float
+  data_pagamento      Int
+  ano_vigente         Int
+  data_pagamento_date DateTime
+  veiculo             Veiculo  @relation(fields: [vehicleId], references: [id])
+}
+
+model VeiculoPessoa {
+  userId    String
+  vehicleId String
+  pessoa    Pessoa  @relation(fields: [userId], references: [id])
+  veiculo   Veiculo @relation(fields: [vehicleId], references: [id])
+
+  @@id([userId, vehicleId])
+}
+
+model Infracoes {
+  id        String
+  vehicleId String
+  userId    String
+  valor     Float
+  data      DateTime
+  pontos    Int
+  pessoa    Pessoa   @relation(fields: [userId], references: [id])
+  veiculo   Veiculo  @relation(fields: [vehicleId], references: [id])
+
+  @@id([id])
+}

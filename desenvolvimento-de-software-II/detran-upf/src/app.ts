@@ -9,6 +9,8 @@ app.register(cors, {
     credentials: true,
 })
 
+// Routes
+
 app.setErrorHandler((error, _, reply) => {
     if (error instanceof ZodError) {
         return reply.status(400).send({
