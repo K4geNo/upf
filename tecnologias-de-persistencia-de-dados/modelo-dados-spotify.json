@@ -1,0 +1,96 @@
+{
+    "artistas": [
+      {
+        "id": "artista1",
+        "nome": "Artista Um",
+        "albuns": [
+          {
+            "id": "album1",
+            "titulo": "Primeiro Álbum",
+            "anoLancamento": 2020,
+            "musicas": [
+              {
+                "id": "musica1",
+                "titulo": "Música Um",
+                "duracao": 210
+              },
+              {
+                "id": "musica2",
+                "titulo": "Música Dois",
+                "duracao": 180
+              }
+            ]
+          },
+          {
+            "id": "album2",
+            "titulo": "Segundo Álbum",
+            "anoLancamento": 2022,
+            "musicas": [
+              {
+                "id": "musica3",
+                "titulo": "Música Três",
+                "duracao": 200
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "artista2",
+        "nome": "Artista Dois",
+        "albuns": [
+          {
+            "id": "album3",
+            "titulo": "Terceiro Álbum",
+            "anoLancamento": 2021,
+            "musicas": [
+              {
+                "id": "musica4",
+                "titulo": "Música Quatro",
+                "duracao": 240
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "playlists": [
+      {
+        "id": "playlist1",
+        "nome": "Playlist de Estudos",
+        "musicas": [
+          {
+            "id": "musica1",
+            "titulo": "Música Um",
+            "artista": "Artista Um",
+            "album": "Primeiro Álbum"
+          },
+          {
+            "id": "musica4",
+            "titulo": "Música Quatro",
+            "artista": "Artista Dois",
+            "album": "Terceiro Álbum"
+          }
+        ]
+      },
+      {
+        "id": "playlist2",
+        "nome": "Playlist para Corrida",
+        "musicas": [
+          {
+            "id": "musica2",
+            "titulo": "Música Dois",
+            "artista": "Artista Um",
+            "album": "Primeiro Álbum"
+          },
+          {
+            "id": "musica3",
+            "titulo": "Música Três",
+            "artista": "Artista Um",
+            "album": "Segundo Álbum"
+          }
+        ]
+      }
+    ]
+  }
+  
