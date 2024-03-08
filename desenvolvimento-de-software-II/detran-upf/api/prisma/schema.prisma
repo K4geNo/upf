@@ -13,18 +13,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Pessoa {
-  id                 String          @id @default(uuid())
+model User {
+  id                 String        @id @default(uuid())
   nome_pessoa        String
-  cpf                String          @unique
+  cpf                String        @unique
   descricao_endereco String?
   data_nascimento    DateTime
   telefone           Int?
   email              String?
   pcd                Boolean
   cnh                Cnh[]
-  veiculo_pessoa     VeiculoPessoa[]
+  userVehicle        UserVehicle[]
   infracoes          Infracoes[]
+
+  @@map("users")
 }
 
 model Cnh {
@@ -33,11 +35,11 @@ model Cnh {
   categoria String
   validade  DateTime
   pontos    Int
-  pessoa    Pessoa   @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 }
 
-model Veiculo {
-  id             String          @id @default(uuid())
+model Vehicle {
+  id             String        @id @default(uuid())
   marca          String
   placa          String
   cor            String
@@ -48,8 +50,10 @@ model Veiculo {
   ipva_valor     Int
   Column1        Int
   ipva           Ipva[]
-  veiculo_pessoa VeiculoPessoa[]
+  userVehicle    UserVehicle[]
   infracoes      Infracoes[]
+
+  @@map("vehicles")
 }
 
 model Ipva {
@@ -59,16 +63,19 @@ model Ipva {
   data_pagamento      Int
   ano_vigente         Int
   data_pagamento_date DateTime
-  veiculo             Veiculo  @relation(fields: [vehicleId], references: [id])
+  vehicle             Vehicle  @relation(fields: [vehicleId], references: [id])
+
+  @@map("ipvas")
 }
 
-model VeiculoPessoa {
+model UserVehicle {
   userId    String
   vehicleId String
-  pessoa    Pessoa  @relation(fields: [userId], references: [id])
-  veiculo   Veiculo @relation(fields: [vehicleId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
 
   @@id([userId, vehicleId])
+  @@map("user_vehicles")
 }
 
 model Infracoes {
@@ -78,8 +85,9 @@ model Infracoes {
   valor     Float
   data      DateTime
   pontos    Int
-  pessoa    Pessoa   @relation(fields: [userId], references: [id])
-  veiculo   Veiculo  @relation(fields: [vehicleId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id])
 
   @@id([id])
+  @@map("infracoes")
 }
