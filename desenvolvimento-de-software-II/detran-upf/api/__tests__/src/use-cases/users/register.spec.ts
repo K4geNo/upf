@@ -20,7 +20,7 @@ describe('Register User Use Case', () => {
             email: 'johndoe@example.com',
             nomePessoa: 'John Doe',
             pcd: false,
-            telefone: 1234567890,
+            telefone: '1234567890',
         })
 
         expect(user.cpf).toEqual(expect.any(String))
@@ -34,7 +34,7 @@ describe('Register User Use Case', () => {
             email: 'johndoe@example.com',
             nomePessoa: 'John Doe',
             pcd: false,
-            telefone: 1234567890,
+            telefone: '1234567890',
         })
 
         await expect(
@@ -45,7 +45,7 @@ describe('Register User Use Case', () => {
                 email: 'johndoe@example.com',
                 nomePessoa: 'John Doe',
                 pcd: false,
-                telefone: 1234567890,
+                telefone: '1234567890',
             }),
         ).rejects.toThrow('User already exists.')
     })
