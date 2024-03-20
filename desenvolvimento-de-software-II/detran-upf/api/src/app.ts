@@ -1,6 +1,7 @@
 import { ZodError } from 'zod'
 import cors from '@fastify/cors'
 import fastify from 'fastify'
+import { usersRoutes } from './controller/users/routes'
 
 export const app = fastify()
 
@@ -10,6 +11,7 @@ app.register(cors, {
 })
 
 // Routes
+app.register(usersRoutes)
 
 app.setErrorHandler((error, _, reply) => {
     if (error instanceof ZodError) {
