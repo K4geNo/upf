@@ -6,7 +6,7 @@ interface RegisterUseCaseRequestDTO {
     cpf: string
     descricaoEndereco: string
     dataNascimento: Date
-    telefone: number
+    telefone: string
     email: string
     pcd: boolean
 }
@@ -45,8 +45,6 @@ export class RegisterUseCase {
             telefone,
         })
 
-        return {
-            user,
-        }
+        return { user }
     }
 }
