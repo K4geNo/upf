@@ -7,12 +7,16 @@ export class InMemoryUsersRepository implements UsersRepository {
     async create(data: User): Promise<User> {
         const user = {
             ...data,
-            id: Math.random().toString(36).substring(7),
+            // id: Math.random().toString(36).substring(7),
         }
 
         this.items.push(user)
 
         return user
+    }
+
+    async findAll(): Promise<User[]> {
+        return this.items
     }
 
     async update(data: User, userId: string): Promise<User> {
