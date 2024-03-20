@@ -19,9 +19,10 @@ model User {
   cpf                String        @unique
   descricao_endereco String?
   data_nascimento    DateTime
-  telefone           Int?
+  telefone           String
   email              String?
   pcd                Boolean
+  createdAt          DateTime      @default(now())
   cnh                Cnh[]
   userVehicle        UserVehicle[]
   infracoes          Infracoes[]
@@ -35,6 +36,7 @@ model Cnh {
   categoria String
   validade  DateTime
   pontos    Int
+  createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
 }
 
@@ -49,6 +51,7 @@ model Vehicle {
   ipva_quitado   Int
   ipva_valor     Int
   Column1        Int
+  createdAt      DateTime      @default(now())
   ipva           Ipva[]
   userVehicle    UserVehicle[]
   infracoes      Infracoes[]
@@ -63,6 +66,7 @@ model Ipva {
   data_pagamento      Int
   ano_vigente         Int
   data_pagamento_date DateTime
+  createdAt           DateTime @default(now())
   vehicle             Vehicle  @relation(fields: [vehicleId], references: [id])
 
   @@map("ipvas")
@@ -85,6 +89,7 @@ model Infracoes {
   valor     Float
   data      DateTime
   pontos    Int
+  createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
   vehicle   Vehicle  @relation(fields: [vehicleId], references: [id])
 
