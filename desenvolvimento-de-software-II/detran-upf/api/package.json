@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch --env-file .env src/server.ts",
-    "test": "vitest run --dir __tests__/src/use-cases"
+    "test": "vitest run --dir __tests__/src/use-cases",
+    "test:integration": "vitest run --dir __tests__/src/http",
+    "migrate:test": "dotenv -e .env.test -- prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
@@ -13,11 +15,15 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.11.21",
+    "@types/supertest": "^6.0.2",
+    "dotenv": "^16.4.5",
     "drizzle-kit": "^0.20.14",
     "eslint-config-k4geno": "^1.0.3",
     "prisma": "^5.10.2",
+    "supertest": "^6.3.4",
     "tsx": "^4.7.1",
     "typescript": "^5.3.3",
+    "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.3.1"
   },
   "dependencies": {

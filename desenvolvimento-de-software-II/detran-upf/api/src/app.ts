@@ -1,7 +1,7 @@
 import { ZodError } from 'zod'
 import cors from '@fastify/cors'
 import fastify from 'fastify'
-import { usersRoutes } from './controller/users/routes'
+import { usersRoutes } from './controllers/users/routes'
 
 export const app = fastify()
 

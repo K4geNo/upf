@@ -31,5 +31,5 @@ export async function registerController(
         telefone,
     })
 
-    return reply.code(201).send(user)
+    return reply.status(201).send(user)
 }

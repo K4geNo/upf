@@ -13,13 +13,15 @@ export async function getByCpfController(
 
     const { cpf } = getByCpfSchema.parse(request.params)
 
-    const user = await getUserByCpf.execute({
-        cpf,
-    })
+    try {
+        const user = await getUserByCpf.execute({
+            cpf,
+        })
 
-    if (!user) {
-        return reply.code(404).send({ message: 'User not found.' })
+        return reply.status(200).send(user)
+    } catch (error) {
+        if (error instanceof Error) {
+            return reply.status(404).send({ message: error.message })
+        }
     }
-
-    return reply.code(200).send(user)
 }

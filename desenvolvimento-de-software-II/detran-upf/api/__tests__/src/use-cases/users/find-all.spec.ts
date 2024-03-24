@@ -13,12 +13,14 @@ describe('Find All Users', () => {
     })
 
     it('should be able to find all users', async () => {
+        const date = new Date()
+
         await usersRepository.create({
             cpf: '12345678900',
             email: 'user@teste.com',
             pcd: true,
-            createdAt: new Date(),
-            data_nascimento: new Date(),
+            createdAt: date,
+            data_nascimento: date,
             descricao_endereco: 'Rua teste',
             nome_pessoa: 'User Teste',
             telefone: '1234567890',
@@ -33,8 +35,8 @@ describe('Find All Users', () => {
                     cpf: '12345678900',
                     email: 'user@teste.com',
                     pcd: true,
-                    createdAt: new Date(),
-                    data_nascimento: new Date(),
+                    createdAt: date,
+                    data_nascimento: date,
                     descricao_endereco: 'Rua teste',
                     id: '1',
                     nome_pessoa: 'User Teste',

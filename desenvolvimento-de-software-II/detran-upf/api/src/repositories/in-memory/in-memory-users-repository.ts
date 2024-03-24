@@ -4,10 +4,9 @@ import { UsersRepository } from '../users-repository'
 export class InMemoryUsersRepository implements UsersRepository {
     public items: User[] = []
 
-    async create(data: User): Promise<User> {
+    async create(data: User) {
         const user = {
             ...data,
-            // id: Math.random().toString(36).substring(7),
         }
 
         this.items.push(user)
@@ -19,7 +18,7 @@ export class InMemoryUsersRepository implements UsersRepository {
         return this.items
     }
 
-    async update(data: User, userId: string): Promise<User> {
+    async update(data: User, userId: string) {
         const userIndex = this.items.findIndex((user) => user.id === userId)
 
         if (userIndex >= 0) {
@@ -29,7 +28,7 @@ export class InMemoryUsersRepository implements UsersRepository {
         return this.items[userIndex]
     }
 
-    async findUserById(id: string): Promise<User | null> {
+    async findUserById(id: string) {
         const user = this.items.find((user) => user.id === id)
 
         if (!user) {
@@ -39,7 +38,7 @@ export class InMemoryUsersRepository implements UsersRepository {
         return user
     }
 
-    async findUserByCpf(cpf: string): Promise<User | null> {
+    async findUserByCpf(cpf: string) {
         const user = this.items.find((user) => user.cpf === cpf)
 
         if (!user) {

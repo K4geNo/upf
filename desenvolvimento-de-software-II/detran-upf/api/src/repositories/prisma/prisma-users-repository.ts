@@ -4,7 +4,7 @@ import { UsersRepository } from '../users-repository'
 import prisma from '../../lib/prisma'
 
 export class PrismaUsersRepository implements UsersRepository {
-    async create(data: Prisma.UserCreateInput): Promise<User> {
+    async create(data: Prisma.UserCreateInput) {
         const user = await prisma.user.create({
             data,
         })
@@ -18,10 +18,7 @@ export class PrismaUsersRepository implements UsersRepository {
         return users
     }
 
-    async update(
-        data: Prisma.UserUncheckedUpdateInput,
-        userId: string,
-    ): Promise<User> {
+    async update(data: Prisma.UserUncheckedUpdateInput, userId: string) {
         const user = await prisma.user.update({
             where: {
                 id: userId,
@@ -32,7 +29,7 @@ export class PrismaUsersRepository implements UsersRepository {
         return user
     }
 
-    async findUserById(id: string): Promise<User | null> {
+    async findUserById(id: string) {
         const user = await prisma.user.findUnique({
             where: { id },
         })
@@ -40,7 +37,7 @@ export class PrismaUsersRepository implements UsersRepository {
         return user
     }
 
-    async findUserByCpf(cpf: string): Promise<User | null> {
+    async findUserByCpf(cpf: string) {
         const user = await prisma.user.findUnique({
             where: { cpf },
         })

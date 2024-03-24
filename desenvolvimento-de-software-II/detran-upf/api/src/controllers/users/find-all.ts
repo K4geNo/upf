@@ -12,5 +12,5 @@ export async function findAllController(
 
     const users = await findAll.execute()
 
-    return reply.code(200).send(users)
+    return reply.status(200).send(users)
 }
