@@ -1,4 +1,5 @@
 import { ZodError } from 'zod'
+import { cnhRoutes } from './controllers/cnh/routes'
 import cors from '@fastify/cors'
 import fastify from 'fastify'
 import { usersRoutes } from './controllers/users/routes'
@@ -12,6 +13,7 @@ app.register(cors, {
 
 // Routes
 app.register(usersRoutes)
+app.register(cnhRoutes)
 
 app.setErrorHandler((error, _, reply) => {
     if (error instanceof ZodError) {
