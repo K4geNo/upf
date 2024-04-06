@@ -1,46 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Infracoes` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Ipva` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Pessoa` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Veiculo` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `VeiculoPessoa` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE "Cnh" DROP CONSTRAINT "Cnh_userId_fkey";
-
--- DropForeignKey
-ALTER TABLE "Infracoes" DROP CONSTRAINT "Infracoes_userId_fkey";
-
--- DropForeignKey
-ALTER TABLE "Infracoes" DROP CONSTRAINT "Infracoes_vehicleId_fkey";
-
--- DropForeignKey
-ALTER TABLE "Ipva" DROP CONSTRAINT "Ipva_vehicleId_fkey";
-
--- DropForeignKey
-ALTER TABLE "VeiculoPessoa" DROP CONSTRAINT "VeiculoPessoa_userId_fkey";
-
--- DropForeignKey
-ALTER TABLE "VeiculoPessoa" DROP CONSTRAINT "VeiculoPessoa_vehicleId_fkey";
-
--- DropTable
-DROP TABLE "Infracoes";
-
--- DropTable
-DROP TABLE "Ipva";
-
--- DropTable
-DROP TABLE "Pessoa";
-
--- DropTable
-DROP TABLE "Veiculo";
-
--- DropTable
-DROP TABLE "VeiculoPessoa";
-
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
@@ -48,11 +5,24 @@ CREATE TABLE "users" (
     "cpf" TEXT NOT NULL,
     "descricao_endereco" TEXT,
     "data_nascimento" TIMESTAMP(3) NOT NULL,
-    "telefone" INTEGER,
+    "telefone" TEXT NOT NULL,
     "email" TEXT,
     "pcd" BOOLEAN NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Cnh" (
+    "numero" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "categoria" TEXT NOT NULL,
+    "validade" TIMESTAMP(3) NOT NULL,
+    "pontos" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Cnh_pkey" PRIMARY KEY ("numero")
 );
 
 -- CreateTable
@@ -67,6 +37,7 @@ CREATE TABLE "vehicles" (
     "ipva_quitado" INTEGER NOT NULL,
     "ipva_valor" INTEGER NOT NULL,
     "Column1" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "vehicles_pkey" PRIMARY KEY ("id")
 );
@@ -79,6 +50,7 @@ CREATE TABLE "ipvas" (
     "data_pagamento" INTEGER NOT NULL,
     "ano_vigente" INTEGER NOT NULL,
     "data_pagamento_date" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "ipvas_pkey" PRIMARY KEY ("id")
 );
@@ -99,6 +71,7 @@ CREATE TABLE "infracoes" (
     "valor" DOUBLE PRECISION NOT NULL,
     "data" TIMESTAMP(3) NOT NULL,
     "pontos" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "infracoes_pkey" PRIMARY KEY ("id")
 );
