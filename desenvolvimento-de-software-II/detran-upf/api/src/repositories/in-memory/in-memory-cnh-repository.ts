@@ -15,7 +15,7 @@ export class InMemoryCnhRepository implements CnhRepository {
         return cnh
     }
 
-    async findCNHByNumber(number: number) {
+    async findCNHByNumber(number: string) {
         const cnh = this.items.find((cnh) => cnh.numero === number)
 
         if (!cnh) {
@@ -44,7 +44,7 @@ export class InMemoryCnhRepository implements CnhRepository {
         return cnh
     }
 
-    async update(data: Cnh, cnhNumber: number) {
+    async update(data: Cnh, cnhNumber: string) {
         const cnhIndex = this.items.findIndex((cnh) => cnh.numero === cnhNumber)
 
         if (cnhIndex >= 0) {
