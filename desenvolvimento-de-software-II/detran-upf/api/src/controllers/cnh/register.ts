@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 
 import { PrismaCnhRepository } from '@/repositories/prisma/prisma-cnh-repository'
 import { RegisterCnhUseCase } from '@/use-cases/cnh/register'
-import { registerCnhSchema } from '@/schema/cnh/register-cnh-schema'
+import { registerCnhSchema } from '@/schema/cnh/cnh-schemas'
 
 export async function registerCnhController(
     request: FastifyRequest,
