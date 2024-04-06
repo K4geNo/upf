@@ -41,20 +41,20 @@ model Cnh {
 }
 
 model Vehicle {
-  id             String        @id @default(uuid())
+  id             String   @id @default(uuid())
   marca          String
   placa          String
   cor            String
   ano_fabricacao Int
   modelo         String
   tipo           Int
-  ipva_quitado   Int
+  ipva_quitado   Boolean
   ipva_valor     Int
-  Column1        Int
-  createdAt      DateTime      @default(now())
-  ipva           Ipva[]
-  userVehicle    UserVehicle[]
-  infracoes      Infracoes[]
+  createdAt      DateTime @default(now())
+
+  ipva        Ipva[]
+  userVehicle UserVehicle[]
+  infracoes   Infracoes[]
 
   @@map("vehicles")
 }

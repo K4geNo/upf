@@ -36,7 +36,6 @@ CREATE TABLE "vehicles" (
     "tipo" INTEGER NOT NULL,
     "ipva_quitado" INTEGER NOT NULL,
     "ipva_valor" INTEGER NOT NULL,
-    "Column1" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "vehicles_pkey" PRIMARY KEY ("id")
