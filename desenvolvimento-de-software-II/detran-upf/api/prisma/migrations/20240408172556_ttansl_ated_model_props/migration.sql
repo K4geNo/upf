@@ -1,11 +1,11 @@
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
-    "nome_pessoa" TEXT NOT NULL,
+    "personName" TEXT NOT NULL,
     "cpf" TEXT NOT NULL,
-    "descricao_endereco" TEXT,
-    "data_nascimento" TIMESTAMP(3) NOT NULL,
-    "telefone" TEXT NOT NULL,
+    "addressDescription" TEXT,
+    "birthDate" TIMESTAMP(3) NOT NULL,
+    "phone" TEXT NOT NULL,
     "email" TEXT,
     "pcd" BOOLEAN NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -14,28 +14,28 @@ CREATE TABLE "users" (
 );
 
 -- CreateTable
-CREATE TABLE "Cnh" (
-    "numero" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "categoria" TEXT NOT NULL,
-    "validade" TIMESTAMP(3) NOT NULL,
-    "pontos" INTEGER NOT NULL,
+CREATE TABLE "driver_licenses" (
+    "number" TEXT NOT NULL,
+    "category" TEXT NOT NULL,
+    "validity" TIMESTAMP(3) NOT NULL,
+    "points" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "userId" TEXT NOT NULL,
 
-    CONSTRAINT "Cnh_pkey" PRIMARY KEY ("numero")
+    CONSTRAINT "driver_licenses_pkey" PRIMARY KEY ("number")
 );
 
 -- CreateTable
 CREATE TABLE "vehicles" (
     "id" TEXT NOT NULL,
-    "marca" TEXT NOT NULL,
-    "placa" TEXT NOT NULL,
-    "cor" TEXT NOT NULL,
-    "ano_fabricacao" INTEGER NOT NULL,
-    "modelo" TEXT NOT NULL,
-    "tipo" INTEGER NOT NULL,
-    "ipva_quitado" INTEGER NOT NULL,
-    "ipva_valor" INTEGER NOT NULL,
+    "brand" TEXT NOT NULL,
+    "licensePlate" TEXT NOT NULL,
+    "color" TEXT NOT NULL,
+    "manufacturingYear" INTEGER NOT NULL,
+    "model" TEXT NOT NULL,
+    "type" INTEGER NOT NULL,
+    "ipvaPaid" BOOLEAN NOT NULL,
+    "ipvaValue" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "vehicles_pkey" PRIMARY KEY ("id")
@@ -44,12 +44,12 @@ CREATE TABLE "vehicles" (
 -- CreateTable
 CREATE TABLE "ipvas" (
     "id" TEXT NOT NULL,
-    "vehicleId" TEXT NOT NULL,
-    "valor" DOUBLE PRECISION NOT NULL,
-    "data_pagamento" INTEGER NOT NULL,
-    "ano_vigente" INTEGER NOT NULL,
-    "data_pagamento_date" TIMESTAMP(3) NOT NULL,
+    "value" DOUBLE PRECISION NOT NULL,
+    "paymentDate" INTEGER NOT NULL,
+    "currentYear" INTEGER NOT NULL,
+    "paymentDateDate" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "vehicleId" TEXT NOT NULL,
 
     CONSTRAINT "ipvas_pkey" PRIMARY KEY ("id")
 );
@@ -63,23 +63,23 @@ CREATE TABLE "user_vehicles" (
 );
 
 -- CreateTable
-CREATE TABLE "infracoes" (
+CREATE TABLE "infractions" (
     "id" TEXT NOT NULL,
     "vehicleId" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "valor" DOUBLE PRECISION NOT NULL,
-    "data" TIMESTAMP(3) NOT NULL,
-    "pontos" INTEGER NOT NULL,
+    "value" DOUBLE PRECISION NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL,
+    "points" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "infracoes_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "infractions_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_cpf_key" ON "users"("cpf");
 
 -- AddForeignKey
-ALTER TABLE "Cnh" ADD CONSTRAINT "Cnh_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "driver_licenses" ADD CONSTRAINT "driver_licenses_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ipvas" ADD CONSTRAINT "ipvas_vehicleId_fkey" FOREIGN KEY ("vehicleId") REFERENCES "vehicles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -91,7 +91,7 @@ ALTER TABLE "user_vehicles" ADD CONSTRAINT "user_vehicles_userId_fkey" FOREIGN K
 ALTER TABLE "user_vehicles" ADD CONSTRAINT "user_vehicles_vehicleId_fkey" FOREIGN KEY ("vehicleId") REFERENCES "vehicles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "infracoes" ADD CONSTRAINT "infracoes_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "infractions" ADD CONSTRAINT "infractions_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "infracoes" ADD CONSTRAINT "infracoes_vehicleId_fkey" FOREIGN KEY ("vehicleId") REFERENCES "vehicles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "infractions" ADD CONSTRAINT "infractions_vehicleId_fkey" FOREIGN KEY ("vehicleId") REFERENCES "vehicles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

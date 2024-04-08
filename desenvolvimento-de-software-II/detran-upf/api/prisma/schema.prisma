@@ -14,60 +14,65 @@ datasource db {
 }
 
 model User {
-  id                 String        @id @default(uuid())
-  nome_pessoa        String
-  cpf                String        @unique
-  descricao_endereco String?
-  data_nascimento    DateTime
-  telefone           String
+  id                 String   @id @default(uuid())
+  personName         String
+  cpf                String   @unique
+  addressDescription String?
+  birthDate          DateTime
+  phone              String
   email              String?
   pcd                Boolean
-  createdAt          DateTime      @default(now())
-  cnh                Cnh[]
-  userVehicle        UserVehicle[]
-  infracoes          Infracoes[]
+  createdAt          DateTime @default(now())
+
+  driverLicense DriverLicense[]
+  userVehicle   UserVehicle[]
+  infractions   Infractions[]
 
   @@map("users")
 }
 
-model Cnh {
-  numero    String   @id
-  userId    String
-  categoria String
-  validade  DateTime
-  pontos    Int
+model DriverLicense {
+  number    String   @id
+  category  String
+  validity  DateTime
+  points    Int
   createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@map("driver_licenses")
 }
 
 model Vehicle {
-  id             String   @id @default(uuid())
-  marca          String
-  placa          String
-  cor            String
-  ano_fabricacao Int
-  modelo         String
-  tipo           Int
-  ipva_quitado   Boolean
-  ipva_valor     Int
-  createdAt      DateTime @default(now())
+  id                String   @id @default(uuid())
+  brand             String
+  licensePlate      String
+  color             String
+  manufacturingYear Int
+  model             String
+  type              Int
+  ipvaPaid          Boolean
+  ipvaValue         Int
+  createdAt         DateTime @default(now())
 
   ipva        Ipva[]
   userVehicle UserVehicle[]
-  infracoes   Infracoes[]
+  infractions Infractions[]
 
   @@map("vehicles")
 }
 
 model Ipva {
-  id                  String   @id @default(uuid())
-  vehicleId           String
-  valor               Float
-  data_pagamento      Int
-  ano_vigente         Int
-  data_pagamento_date DateTime
-  createdAt           DateTime @default(now())
-  vehicle             Vehicle  @relation(fields: [vehicleId], references: [id])
+  id              String   @id @default(uuid())
+  value           Float
+  paymentDate     Int
+  currentYear     Int
+  paymentDateDate DateTime
+  createdAt       DateTime @default(now())
+
+  vehicleId String
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
 
   @@map("ipvas")
 }
@@ -82,17 +87,17 @@ model UserVehicle {
   @@map("user_vehicles")
 }
 
-model Infracoes {
+model Infractions {
   id        String
   vehicleId String
   userId    String
-  valor     Float
-  data      DateTime
-  pontos    Int
+  value     Float
+  date      DateTime
+  points    Int
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
   vehicle   Vehicle  @relation(fields: [vehicleId], references: [id])
 
   @@id([id])
-  @@map("infracoes")
+  @@map("infractions")
 }
