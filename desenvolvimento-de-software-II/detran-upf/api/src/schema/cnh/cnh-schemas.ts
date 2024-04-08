@@ -22,3 +22,8 @@ export const updateCnhSchema = z
         validity: z.coerce.date(),
     })
     .partial()
+
+export const updatePointsDriverLicenseParamsSchema = z.object({
+    infractionId: z.string(),
+    userId: z.string(),
+})
