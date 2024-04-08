@@ -3,7 +3,7 @@ import { VehicleRepository } from '../vehicle-repository'
 import prisma from '@/lib/prisma'
 
 export class PrismaVehicleRepository implements VehicleRepository {
-    async getVehicleById(id: string) {
+    async getById(id: string) {
         const vehicle = await prisma.vehicle.findFirst({
             where: {
                 id,
@@ -13,17 +13,17 @@ export class PrismaVehicleRepository implements VehicleRepository {
         return vehicle
     }
 
-    async getVehicleByPlaca(placa: string) {
+    async getBylicensePlate(licensePlate: string) {
         const vehicle = await prisma.vehicle.findFirst({
             where: {
-                placa,
+                licensePlate,
             },
         })
 
         return vehicle
     }
 
-    async getVehicles() {
+    async findAll() {
         const vehicles = await prisma.vehicle.findMany()
 
         return vehicles
