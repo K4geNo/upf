@@ -17,22 +17,14 @@ export function updateDriverLicenseController(
 
     const { category, points, validity } = updateCnhSchema.parse(request.body)
 
-    try {
-        const driverLicense = updateDriverLicenseUseCase.execute({
-            data: {
-                category,
-                points,
-                validity,
-            },
-            licenseNumber,
-        })
+    const driverLicense = updateDriverLicenseUseCase.execute({
+        data: {
+            category,
+            points,
+            validity,
+        },
+        licenseNumber,
+    })
 
-        return reply.status(200).send(driverLicense)
-    } catch (error) {
-        if (error instanceof Error) {
-            return reply.status(404).send({ message: error.message })
-        }
-
-        return reply.status(500).send({ message: 'Internal Server Error' })
-    }
+    return reply.status(200).send(driverLicense)
 }
