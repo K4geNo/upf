@@ -2,11 +2,11 @@ import { User } from '@prisma/client'
 import { UsersRepository } from '../../repositories/users-repository'
 
 interface RegisterUseCaseRequestDTO {
-    nomePessoa: string
+    personName: string
     cpf: string
-    descricaoEndereco: string
-    dataNascimento: Date
-    telefone: string
+    addressDescription: string
+    birthDate: Date
+    phone: string
     email: string
     pcd: boolean
 }
@@ -21,11 +21,11 @@ export class RegisterUseCase {
     }
 
     async execute({
-        nomePessoa,
+        personName,
         cpf,
-        dataNascimento,
-        descricaoEndereco,
-        telefone,
+        addressDescription,
+        birthDate,
+        phone,
         email,
         pcd,
     }: RegisterUseCaseRequestDTO): Promise<RegisterUseCaseResponseDTO> {
@@ -36,13 +36,13 @@ export class RegisterUseCase {
         }
 
         const user = await this.usersRepository.create({
-            nome_pessoa: nomePessoa,
+            personName,
             cpf,
-            data_nascimento: dataNascimento,
+            birthDate,
             pcd,
-            descricao_endereco: descricaoEndereco,
+            addressDescription,
             email,
-            telefone,
+            phone,
         })
 
         return { user }

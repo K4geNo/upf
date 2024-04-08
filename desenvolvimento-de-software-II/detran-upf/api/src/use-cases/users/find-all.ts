@@ -5,7 +5,7 @@ interface FindAllResponseDTO {
     users: User[]
 }
 
-export class FindAllUseCase {
+export class FindAllUsersUseCase {
     constructor(private usersRepository: UsersRepository) {
         Object.freeze(this.usersRepository)
     }
