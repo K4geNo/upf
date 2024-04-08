@@ -1,24 +1,26 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 
-import { FindCnhByUserIdUseCase } from '@/use-cases/cnh/find-cnh-by-userId'
-import { PrismaCnhRepository } from '@/repositories/prisma/prisma-cnh-repository'
+import { FindLicenseByUserIdUseCase } from '@/use-cases/cnh/find-by-userId'
+import { PrismaDriverLicenseRepository } from '@/repositories/prisma/prisma-cnh-repository'
 import { cnhUserIdParamSchema } from '@/schema/cnh/cnh-schemas'
 
-export async function findCnhByUserIdController(
+export async function findDriverLicenseByUserIdController(
     request: FastifyRequest,
     reply: FastifyReply,
 ) {
-    const prismaCnhRepository = new PrismaCnhRepository()
-    const findCnhByUserIdUseCase = new FindCnhByUserIdUseCase(
-        prismaCnhRepository,
+    const prismaDriverLicenseRepository = new PrismaDriverLicenseRepository()
+    const findDriverLicenseByUserIdUseCase = new FindLicenseByUserIdUseCase(
+        prismaDriverLicenseRepository,
     )
 
     const { userId } = cnhUserIdParamSchema.parse(request.params)
 
     try {
-        const cnhs = await findCnhByUserIdUseCase.execute(userId)
+        const driverLicenses = await findDriverLicenseByUserIdUseCase.execute({
+            userId,
+        })
 
-        return reply.status(200).send(cnhs)
+        return reply.status(200).send(driverLicenses)
     } catch (error) {
         if (error instanceof Error) {
             return reply.status(404).send({ message: error.message })

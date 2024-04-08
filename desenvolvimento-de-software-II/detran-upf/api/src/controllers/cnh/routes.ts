@@ -1,14 +1,14 @@
 import { FastifyInstance } from 'fastify'
-import { findAllCnhController } from './find-all'
-import { findCnhByNumberController } from './find-cnh-by-number'
-import { findCnhByUserIdController } from './find-cnh-by-userId'
-import { registerCnhController } from './register'
-import { updateCnhController } from './update'
+import { findAllDriverLicenseController } from './find-all'
+import { findByLicenseNumberController } from './find-cnh-by-number'
+import { findDriverLicenseByUserIdController } from './find-cnh-by-userId'
+import { registerDriverLicenseController } from './register'
+import { updateDriverLicenseController } from './update'
 
 export async function cnhRoutes(app: FastifyInstance) {
-    app.post('/cnh/register', registerCnhController)
-    app.get('/cnhs', findAllCnhController)
-    app.get('/cnh/:number', findCnhByNumberController)
-    app.get('/cnh/user/:userId', findCnhByUserIdController)
-    app.put('/cnh/:number', updateCnhController)
+    app.post('/driverLicense/register/:userId', registerDriverLicenseController)
+    app.get('/driverLicenses', findAllDriverLicenseController)
+    app.get('/driverLicense/:licenseNumber', findByLicenseNumberController)
+    app.get('/driverLicense/user/:userId', findDriverLicenseByUserIdController)
+    app.put('/driverLicense/:licenseNumber', updateDriverLicenseController)
 }

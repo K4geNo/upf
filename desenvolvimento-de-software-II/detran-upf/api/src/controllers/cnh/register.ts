@@ -1,29 +1,36 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 
-import { PrismaCnhRepository } from '@/repositories/prisma/prisma-cnh-repository'
-import { RegisterCnhUseCase } from '@/use-cases/cnh/register'
-import { registerCnhSchema } from '@/schema/cnh/cnh-schemas'
+import { PrismaDriverLicenseRepository } from '@/repositories/prisma/prisma-cnh-repository'
+import { RegisterDriverLicenseUseCase } from '@/use-cases/cnh/register'
+import {
+    cnhUserIdParamSchema,
+    registerCnhSchema,
+} from '@/schema/cnh/cnh-schemas'
 
-export async function registerCnhController(
+export async function registerDriverLicenseController(
     request: FastifyRequest,
     reply: FastifyReply,
 ) {
-    const prismaCnhRepository = new PrismaCnhRepository()
-    const cnhRegisterUseCase = new RegisterCnhUseCase(prismaCnhRepository)
+    const prismaDriverLicenseRepository = new PrismaDriverLicenseRepository()
+    const cnhRegisterUseCase = new RegisterDriverLicenseUseCase(
+        prismaDriverLicenseRepository,
+    )
 
-    const { categoria, numero, pontos, userId, validade } =
+    const { userId } = cnhUserIdParamSchema.parse(request.params)
+
+    const { category, licenseNumber, points, validity } =
         registerCnhSchema.parse(request.body)
 
     try {
-        const cnh = await cnhRegisterUseCase.execute({
-            categoria,
-            numero,
-            pontos,
+        const driverLicense = await cnhRegisterUseCase.execute({
+            category,
+            licenseNumber,
+            points,
             userId,
-            validade,
+            validity,
         })
 
-        return reply.status(201).send(cnh)
+        return reply.status(201).send(driverLicense)
     } catch (error) {
         if (error instanceof Error) {
             return reply.status(400).send({ message: error.message })

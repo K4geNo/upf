@@ -1,22 +1,24 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 
-import { FindCnhByNumberUseCase } from '@/use-cases/cnh/find-cnh-by-number'
-import { PrismaCnhRepository } from '@/repositories/prisma/prisma-cnh-repository'
+import { FindByLicenseNumberUseCase } from '@/use-cases/cnh/find-by-license-number'
+import { PrismaDriverLicenseRepository } from '@/repositories/prisma/prisma-cnh-repository'
 import { cnhNumberParamSchema } from '@/schema/cnh/cnh-schemas'
 
-export async function findCnhByNumberController(
+export async function findByLicenseNumberController(
     request: FastifyRequest,
     reply: FastifyReply,
 ) {
-    const prismaCnhRepository = new PrismaCnhRepository()
-    const findCnhByNumberUseCase = new FindCnhByNumberUseCase(
-        prismaCnhRepository,
+    const prismaDriverLicenseRepository = new PrismaDriverLicenseRepository()
+    const findCnhByNumberUseCase = new FindByLicenseNumberUseCase(
+        prismaDriverLicenseRepository,
     )
 
-    const { number } = cnhNumberParamSchema.parse(request.params)
+    const { licenseNumber } = cnhNumberParamSchema.parse(request.params)
 
     try {
-        const cnhs = await findCnhByNumberUseCase.execute(number)
+        const cnhs = await findCnhByNumberUseCase.execute({
+            licenseNumber,
+        })
 
         return reply.status(200).send(cnhs)
     } catch (error) {

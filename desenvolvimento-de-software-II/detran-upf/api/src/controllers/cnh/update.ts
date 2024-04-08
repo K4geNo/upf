@@ -1,34 +1,33 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { cnhNumberParamSchema, updateCnhSchema } from '@/schema/cnh/cnh-schemas'
 
-import { PrismaCnhRepository } from '@/repositories/prisma/prisma-cnh-repository'
-import { UpdateCnhUseCase } from '@/use-cases/cnh/update'
+import { PrismaDriverLicenseRepository } from '@/repositories/prisma/prisma-cnh-repository'
+import { UpdateDriverLicenseUseCase } from '@/use-cases/cnh/update'
 
-export function updateCnhController(
+export function updateDriverLicenseController(
     request: FastifyRequest,
     reply: FastifyReply,
 ) {
-    const prismaCnhRepository = new PrismaCnhRepository()
-    const updateCnhUseCase = new UpdateCnhUseCase(prismaCnhRepository)
-
-    const { number } = cnhNumberParamSchema.parse(request.params)
-
-    const { categoria, numero, pontos, validade } = updateCnhSchema.parse(
-        request.body,
+    const prismaDriverLicenseRepository = new PrismaDriverLicenseRepository()
+    const updateDriverLicenseUseCase = new UpdateDriverLicenseUseCase(
+        prismaDriverLicenseRepository,
     )
 
+    const { licenseNumber } = cnhNumberParamSchema.parse(request.params)
+
+    const { category, points, validity } = updateCnhSchema.parse(request.body)
+
     try {
-        const cnh = updateCnhUseCase.execute({
+        const driverLicense = updateDriverLicenseUseCase.execute({
             data: {
-                categoria,
-                numero,
-                pontos,
-                validade,
+                category,
+                points,
+                validity,
             },
-            cnhNumber: number,
+            licenseNumber,
         })
 
-        return reply.status(200).send(cnh)
+        return reply.status(200).send(driverLicense)
     } catch (error) {
         if (error instanceof Error) {
             return reply.status(404).send({ message: error.message })
