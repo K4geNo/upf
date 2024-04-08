@@ -1,12 +1,12 @@
 import { z } from 'zod'
 
 export const registerVehicleSchema = z.object({
-    anoFabricacao: z.number(),
-    cor: z.string(),
-    ipvaQuitado: z.boolean(),
-    ipvaValor: z.number(),
-    marca: z.string(),
-    modelo: z.string(),
-    placa: z.string(),
-    tipo: z.number(),
+    manufacturingYear: z.number(),
+    color: z.string(),
+    ipvaPaid: z.boolean(),
+    ipvaValue: z.number(),
+    brand: z.string(),
+    model: z.string(),
+    licensePlate: z.string(),
+    type: z.number(),
 })

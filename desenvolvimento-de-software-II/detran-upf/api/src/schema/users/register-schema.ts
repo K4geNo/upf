@@ -1,11 +1,11 @@
 import { z } from 'zod'
 
 export const registerUserSchema = z.object({
-    nomePessoa: z.string(),
+    personName: z.string(),
     cpf: z.string(),
-    descricaoEndereco: z.string(),
-    dataNascimento: z.coerce.date(),
-    telefone: z.string(),
+    addressDescription: z.string(),
+    birthDate: z.coerce.date(),
+    phone: z.string(),
     email: z.string().email(),
     pcd: z.boolean(),
 })

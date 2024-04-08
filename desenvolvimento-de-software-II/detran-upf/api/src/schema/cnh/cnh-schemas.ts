@@ -1,15 +1,14 @@
 import { z } from 'zod'
 
 export const registerCnhSchema = z.object({
-    numero: z.string(),
-    categoria: z.string(),
-    pontos: z.number(),
-    validade: z.coerce.date(),
-    userId: z.string(),
+    licenseNumber: z.string(),
+    category: z.string(),
+    points: z.number(),
+    validity: z.coerce.date(),
 })
 
 export const cnhNumberParamSchema = z.object({
-    number: z.string(),
+    licenseNumber: z.string(),
 })
 
 export const cnhUserIdParamSchema = z.object({
@@ -18,9 +17,8 @@ export const cnhUserIdParamSchema = z.object({
 
 export const updateCnhSchema = z
     .object({
-        numero: z.string(),
-        categoria: z.string(),
-        pontos: z.number(),
-        validade: z.coerce.date(),
+        category: z.string(),
+        points: z.number(),
+        validity: z.coerce.date(),
     })
     .partial()
