@@ -1,17 +1,17 @@
-import { Cnh } from '@prisma/client'
-import { CnhRepository } from '@/repositories/cnh-repository'
+import { DriverLicense } from '@prisma/client'
+import { DriverLicenseRepository } from '@/repositories/driver-license-repository'
 
-interface FindAllCnhResponseDTO {
-    cnhs: Cnh[]
+interface FindAllResponseDTO {
+    cnhs: DriverLicense[]
 }
 
-export class FindAllCnhUseCase {
-    constructor(private cnhRepository: CnhRepository) {
-        Object.freeze(this.cnhRepository)
+export class FindAllDriverLicenseUseCase {
+    constructor(private driverLicenseRepository: DriverLicenseRepository) {
+        Object.freeze(this.driverLicenseRepository)
     }
 
-    async execute(): Promise<FindAllCnhResponseDTO> {
-        const cnhs = await this.cnhRepository.findAll()
+    async execute(): Promise<FindAllResponseDTO> {
+        const cnhs = await this.driverLicenseRepository.findAll()
 
         return { cnhs }
     }

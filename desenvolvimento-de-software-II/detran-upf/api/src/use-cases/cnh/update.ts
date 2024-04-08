@@ -1,31 +1,34 @@
-import { Cnh, Prisma } from '@prisma/client'
+import { DriverLicense, Prisma } from '@prisma/client'
 
-import { CnhRepository } from '@/repositories/cnh-repository'
+import { DriverLicenseRepository } from '@/repositories/driver-license-repository'
 
 interface UpdateCnhUseCaseDTO {
-    data: Prisma.CnhUncheckedUpdateInput
-    cnhNumber: string
+    data: Prisma.DriverLicenseUncheckedUpdateInput
+    licenseNumber: string
 }
 
 interface UpdateCnhUseCaseResponse {
-    cnh: Cnh
+    driverLicense: DriverLicense
 }
 
-export class UpdateCnhUseCase {
-    constructor(private cnhRepository: CnhRepository) {
-        Object.freeze(this.cnhRepository)
+export class UpdateDriverLicenseUseCase {
+    constructor(private driverLicenseRepository: DriverLicenseRepository) {
+        Object.freeze(this.driverLicenseRepository)
     }
 
     async execute({
         data,
-        cnhNumber,
+        licenseNumber,
     }: UpdateCnhUseCaseDTO): Promise<UpdateCnhUseCaseResponse> {
-        const cnh = await this.cnhRepository.update(data, cnhNumber)
+        const driverLicense = await this.driverLicenseRepository.update(
+            data,
+            licenseNumber,
+        )
 
-        if (!cnh) {
-            throw new Error('CNH not found.')
+        if (!driverLicense) {
+            throw new Error('DriverLicense not found.')
         }
 
-        return { cnh }
+        return { driverLicense }
     }
 }

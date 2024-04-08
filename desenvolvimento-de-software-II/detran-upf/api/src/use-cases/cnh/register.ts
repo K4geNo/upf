@@ -1,45 +1,51 @@
-import { Cnh } from '@prisma/client'
-import { CnhRepository } from '@/repositories/cnh-repository'
+import { DriverLicense } from '@prisma/client'
+import { DriverLicenseRepository } from '@/repositories/driver-license-repository'
 
-interface RegisterCnhUseCaseRequestDTO {
-    numero: string
-    categoria: string
-    pontos: number
-    validade: Date
+interface RegisterDriverLicenseUseCaseRequestDTO {
+    licenseNumber: string
+    category: string
+    points: number
+    validity: Date
     userId: string
 }
 
-interface RegisterCnhUseCaseResponseDTO {
-    cnh: Cnh
+interface RegisterDriverLicenseUseCaseResponseDTO {
+    driverLicense: DriverLicense
 }
 
-export class RegisterCnhUseCase {
-    constructor(private cnhRepository: CnhRepository) {
-        Object.freeze(this.cnhRepository)
+export class RegisterDriverLicenseUseCase {
+    constructor(private driverLicenseRepository: DriverLicenseRepository) {
+        Object.freeze(this.driverLicenseRepository)
     }
 
     async execute({
-        categoria,
-        numero,
-        pontos,
+        category,
+        licenseNumber,
+        points,
         userId,
-        validade,
-    }: RegisterCnhUseCaseRequestDTO): Promise<RegisterCnhUseCaseResponseDTO> {
-        const cnhAlreadyExists =
-            await this.cnhRepository.findCNHByNumber(numero)
+        validity,
+    }: RegisterDriverLicenseUseCaseRequestDTO): Promise<RegisterDriverLicenseUseCaseResponseDTO> {
+        const driverLicenseAlreadyExists =
+            await this.driverLicenseRepository.findByLicenseNumber(
+                licenseNumber,
+            )
 
-        if (cnhAlreadyExists) {
-            throw new Error('CNH already exists.')
+        if (driverLicenseAlreadyExists) {
+            throw new Error('Driver License already exists.')
         }
 
-        const cnh = await this.cnhRepository.create({
-            categoria,
-            numero,
-            pontos,
-            userId,
-            validade,
+        const driverLicense = await this.driverLicenseRepository.create({
+            category,
+            number: licenseNumber,
+            points,
+            validity,
+            user: {
+                connect: {
+                    id: userId,
+                },
+            },
         })
 
-        return { cnh }
+        return { driverLicense }
     }
 }
