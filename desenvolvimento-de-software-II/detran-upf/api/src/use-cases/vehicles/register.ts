@@ -2,14 +2,14 @@ import { Vehicle } from '@prisma/client'
 import { VehicleRepository } from '@/repositories/vehicle-repository'
 
 interface RegisterUseCaseRequestDTO {
-    anoFabricacao: number
-    cor: string
-    ipvaQuitado: boolean
-    ipvaValor: number
-    marca: string
-    modelo: string
-    placa: string
-    tipo: number
+    manufacturingYear: number
+    color: string
+    ipvaPaid: boolean
+    ipvaValue: number
+    brand: string
+    model: string
+    licensePlate: string
+    type: number
 }
 
 interface RegisterUseCaseResponseDTO {
@@ -22,31 +22,31 @@ export class RegisterVehicleUseCase {
     }
 
     async execute({
-        anoFabricacao,
-        cor,
-        ipvaQuitado,
-        ipvaValor,
-        marca,
-        modelo,
-        placa,
-        tipo,
+        manufacturingYear,
+        color,
+        ipvaPaid,
+        ipvaValue,
+        brand,
+        model,
+        licensePlate,
+        type,
     }: RegisterUseCaseRequestDTO): Promise<RegisterUseCaseResponseDTO> {
         const vehicleAlreadyExists =
-            await this.vehicleRepository.getVehicleByPlaca(placa)
+            await this.vehicleRepository.getBylicensePlate(licensePlate)
 
         if (vehicleAlreadyExists) {
             throw new Error('Vehicle already exists')
         }
 
         const vehicle = await this.vehicleRepository.create({
-            ano_fabricacao: anoFabricacao,
-            cor,
-            ipva_quitado: ipvaQuitado,
-            ipva_valor: ipvaValor,
-            marca,
-            modelo,
-            placa,
-            tipo,
+            manufacturingYear,
+            color,
+            ipvaPaid,
+            ipvaValue,
+            brand,
+            model,
+            licensePlate,
+            type,
         })
 
         return { vehicle }
