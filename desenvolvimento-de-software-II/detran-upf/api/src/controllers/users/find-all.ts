@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 
-import { FindAllUseCase } from '../../use-cases/users/find-all'
+import { FindAllUsersUseCase } from '../../use-cases/users/find-all'
 import { PrismaUsersRepository } from '../../repositories/prisma/prisma-users-repository'
 
 export async function findAllController(
@@ -8,9 +8,9 @@ export async function findAllController(
     reply: FastifyReply,
 ) {
     const prismaUsersRepository = new PrismaUsersRepository()
-    const findAll = new FindAllUseCase(prismaUsersRepository)
+    const findAllUsersUseCase = new FindAllUsersUseCase(prismaUsersRepository)
 
-    const users = await findAll.execute()
+    const users = await findAllUsersUseCase.execute()
 
     return reply.status(200).send(users)
 }

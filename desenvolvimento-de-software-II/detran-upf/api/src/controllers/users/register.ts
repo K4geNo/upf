@@ -13,22 +13,22 @@ export async function registerController(
 
     const {
         cpf,
-        dataNascimento,
-        descricaoEndereco,
+        addressDescription,
+        birthDate,
         email,
-        nomePessoa,
         pcd,
-        telefone,
+        personName,
+        phone,
     } = registerUserSchema.parse(request.body)
 
     const user = await userRegisterUseCase.execute({
         cpf,
-        dataNascimento,
-        descricaoEndereco,
+        addressDescription,
+        birthDate,
         email,
-        nomePessoa,
+        personName,
         pcd,
-        telefone,
+        phone,
     })
 
     return reply.status(201).send(user)
