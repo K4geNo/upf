@@ -1,50 +1,53 @@
-import { CnhRepository } from '../cnh-repository'
+import { DriverLicenseRepository } from '../driver-license-repository'
 import { Prisma } from '@prisma/client'
 import prisma from '@/lib/prisma'
 
-export class PrismaCnhRepository implements CnhRepository {
-    async findCNHByUserId(userId: string) {
-        const cnh = await prisma.cnh.findFirst({
+export class PrismaDriverLicenseRepository implements DriverLicenseRepository {
+    async findByUserId(userId: string) {
+        const driverLicense = await prisma.driverLicense.findFirst({
             where: {
                 userId,
             },
         })
 
-        return cnh
+        return driverLicense
     }
 
-    async findCNHByNumber(number: string) {
-        const cnh = await prisma.cnh.findFirst({
+    async findByLicenseNumber(licenseNumber: string) {
+        const driverLicense = await prisma.driverLicense.findFirst({
             where: {
-                numero: number,
+                number: licenseNumber,
             },
         })
 
-        return cnh
+        return driverLicense
     }
 
     async findAll() {
-        const cnhs = await prisma.cnh.findMany()
+        const driverLicenses = await prisma.driverLicense.findMany()
 
-        return cnhs
+        return driverLicenses
     }
 
-    async create(data: Prisma.CnhUncheckedCreateInput) {
-        const cnh = await prisma.cnh.create({
+    async create(data: Prisma.DriverLicenseCreateInput) {
+        const driverLicense = await prisma.driverLicense.create({
             data,
         })
 
-        return cnh
+        return driverLicense
     }
 
-    async update(data: Prisma.CnhUncheckedUpdateInput, cnhNumber: string) {
-        const cnh = await prisma.cnh.update({
+    async update(
+        data: Prisma.DriverLicenseUncheckedUpdateInput,
+        licenseNumber: string,
+    ) {
+        const driverLicense = await prisma.driverLicense.update({
             where: {
-                numero: cnhNumber,
+                number: licenseNumber,
             },
             data,
         })
 
-        return cnh
+        return driverLicense
     }
 }
