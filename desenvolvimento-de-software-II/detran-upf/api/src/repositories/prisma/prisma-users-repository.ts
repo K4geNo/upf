@@ -13,7 +13,17 @@ export class PrismaUsersRepository implements UsersRepository {
     }
 
     async findAll(): Promise<User[]> {
-        const users = await prisma.user.findMany()
+        const users = await prisma.user.findMany({
+            include: {
+                driverLicense: true,
+                infractions: true,
+                userVehicle: {
+                    include: {
+                        vehicle: true,
+                    },
+                },
+            },
+        })
 
         return users
     }
