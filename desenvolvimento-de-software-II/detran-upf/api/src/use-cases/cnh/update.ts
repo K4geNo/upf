@@ -25,10 +25,6 @@ export class UpdateDriverLicenseUseCase {
             licenseNumber,
         )
 
-        if (!driverLicense) {
-            throw new Error('DriverLicense not found.')
-        }
-
         return { driverLicense }
     }
 }
