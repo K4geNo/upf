@@ -88,7 +88,7 @@ model UserVehicle {
 }
 
 model Infractions {
-  id        String
+  id        String   @id @default(uuid())
   vehicleId String
   userId    String
   value     Float
@@ -98,6 +98,5 @@ model Infractions {
   user      User     @relation(fields: [userId], references: [id])
   vehicle   Vehicle  @relation(fields: [vehicleId], references: [id])
 
-  @@id([id])
   @@map("infractions")
 }
