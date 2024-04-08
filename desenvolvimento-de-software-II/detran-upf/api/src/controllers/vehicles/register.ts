@@ -14,26 +14,26 @@ export async function RegisterVehicleController(
     )
 
     const {
-        anoFabricacao,
-        cor,
-        ipvaQuitado,
-        ipvaValor,
-        marca,
-        modelo,
-        placa,
-        tipo,
+        brand,
+        color,
+        ipvaPaid,
+        ipvaValue,
+        licensePlate,
+        manufacturingYear,
+        model,
+        type,
     } = registerVehicleSchema.parse(request.body)
 
     try {
         const vehicle = await vehicleRegisterUseCase.execute({
-            anoFabricacao,
-            cor,
-            ipvaQuitado,
-            ipvaValor,
-            marca,
-            modelo,
-            placa,
-            tipo,
+            brand,
+            color,
+            ipvaPaid,
+            ipvaValue,
+            licensePlate,
+            manufacturingYear,
+            model,
+            type,
         })
 
         return reply.status(201).send(vehicle)
