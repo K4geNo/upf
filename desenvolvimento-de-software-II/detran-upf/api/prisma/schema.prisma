@@ -64,12 +64,11 @@ model Vehicle {
 }
 
 model Ipva {
-  id              String   @id @default(uuid())
-  value           Float
-  paymentDate     Int
-  currentYear     Int
-  paymentDateDate DateTime
-  createdAt       DateTime @default(now())
+  id          String   @id @default(uuid())
+  value       Float
+  paymentDate DateTime
+  currentYear Int
+  createdAt   DateTime @default(now())
 
   vehicleId String
   vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
