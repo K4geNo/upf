@@ -6,6 +6,7 @@ import { usersRoutes } from './controllers/users/routes'
 import { vehiclesRoutes } from './controllers/vehicles/routes'
 import { infractionsRoutes } from './controllers/infractions/routes'
 import { userVehicleRoutes } from './controllers/user-vehicle/routes'
+import { ipvaRoutes } from './controllers/ipva/routes'
 
 export const app = fastify()
 
@@ -20,6 +21,7 @@ app.register(cnhRoutes)
 app.register(vehiclesRoutes)
 app.register(infractionsRoutes)
 app.register(userVehicleRoutes)
+app.register(ipvaRoutes)
 
 app.setErrorHandler((error, _, reply) => {
     if (error instanceof ZodError) {
