@@ -6,10 +6,7 @@ import { updateUserController } from './update'
 
 export async function usersRoutes(app: FastifyInstance) {
     app.post('/user/register', registerController)
-
     app.post('/user/:cpf', getByCpfController)
-
     app.get('/users', findAllController)
-
     app.put('/user/update/:userId', updateUserController)
 }
