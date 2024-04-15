@@ -4,7 +4,7 @@ import { DriverLicenseRepository } from '@/repositories/driver-license-repositor
 
 interface UpdateCnhUseCaseDTO {
     data: Prisma.DriverLicenseUncheckedUpdateInput
-    licenseNumber: string
+    driverLicenseId: string
 }
 
 interface UpdateCnhUseCaseResponse {
@@ -18,11 +18,11 @@ export class UpdateDriverLicenseUseCase {
 
     async execute({
         data,
-        licenseNumber,
+        driverLicenseId,
     }: UpdateCnhUseCaseDTO): Promise<UpdateCnhUseCaseResponse> {
         const driverLicense = await this.driverLicenseRepository.update(
             data,
-            licenseNumber,
+            driverLicenseId,
         )
 
         return { driverLicense }

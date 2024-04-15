@@ -7,6 +7,6 @@ export interface DriverLicenseRepository {
     create(data: Prisma.DriverLicenseCreateInput): Promise<DriverLicense>
     update(
         data: Prisma.DriverLicenseUncheckedUpdateInput,
-        licenseNumber: string,
+        driverLicenseId: string,
     ): Promise<DriverLicense>
 }

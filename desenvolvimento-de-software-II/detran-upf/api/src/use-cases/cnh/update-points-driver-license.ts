@@ -42,7 +42,7 @@ export class UpdatePointsDriverLicenseUseCase {
             {
                 points: driverLicense.points,
             },
-            driverLicense.number,
+            driverLicense.id,
         )
     }
 }

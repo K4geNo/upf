@@ -13,7 +13,7 @@ export function updateDriverLicenseController(
         prismaDriverLicenseRepository,
     )
 
-    const { licenseNumber } = cnhNumberParamSchema.parse(request.params)
+    const { driverLicenseId } = cnhNumberParamSchema.parse(request.params)
 
     const { category, points, validity } = updateCnhSchema.parse(request.body)
 
@@ -23,7 +23,7 @@ export function updateDriverLicenseController(
             points,
             validity,
         },
-        licenseNumber,
+        driverLicenseId,
     })
 
     return reply.status(200).send(driverLicense)

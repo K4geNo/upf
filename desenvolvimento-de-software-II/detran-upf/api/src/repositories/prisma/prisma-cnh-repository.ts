@@ -39,11 +39,11 @@ export class PrismaDriverLicenseRepository implements DriverLicenseRepository {
 
     async update(
         data: Prisma.DriverLicenseUncheckedUpdateInput,
-        licenseNumber: string,
+        driverLicenseId: string,
     ) {
         const driverLicense = await prisma.driverLicense.update({
             where: {
-                number: licenseNumber,
+                id: driverLicenseId,
             },
             data,
         })

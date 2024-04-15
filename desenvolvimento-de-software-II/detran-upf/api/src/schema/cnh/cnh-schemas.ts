@@ -8,7 +8,7 @@ export const registerCnhSchema = z.object({
 })
 
 export const cnhNumberParamSchema = z.object({
-    licenseNumber: z.string(),
+    driverLicenseId: z.string(),
 })
 
 export const cnhUserIdParamSchema = z.object({
