@@ -23,5 +23,9 @@ export async function getByCpfController(
         if (error instanceof Error) {
             return reply.status(404).send({ message: error.message })
         }
+
+        return reply
+            .status(500)
+            .send({ message: 'Internal Server Error', error })
     }
 }

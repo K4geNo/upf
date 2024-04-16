@@ -16,10 +16,13 @@ export class PrismaUsersRepository implements UsersRepository {
         const users = await prisma.user.findMany({
             include: {
                 driverLicense: true,
-                infractions: true,
-                userVehicle: {
+                infractions: {
                     include: {
-                        vehicle: true,
+                        vehicle: {
+                            include: {
+                                ipva: true,
+                            },
+                        },
                     },
                 },
             },

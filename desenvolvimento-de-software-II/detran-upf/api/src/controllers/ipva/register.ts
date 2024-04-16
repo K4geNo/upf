@@ -32,6 +32,6 @@ export async function RegisterIpvaController(
             return reply.code(400).send({ message: error.message })
         }
 
-        reply.code(500).send({ message: error })
+        return reply.code(500).send({ message: error })
     }
 }

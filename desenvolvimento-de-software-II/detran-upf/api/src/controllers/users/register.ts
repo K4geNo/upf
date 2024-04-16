@@ -21,15 +21,25 @@ export async function registerController(
         phone,
     } = registerUserSchema.parse(request.body)
 
-    const user = await userRegisterUseCase.execute({
-        cpf,
-        addressDescription,
-        birthDate,
-        email,
-        personName,
-        pcd,
-        phone,
-    })
+    try {
+        const user = await userRegisterUseCase.execute({
+            cpf,
+            addressDescription,
+            birthDate,
+            email,
+            personName,
+            pcd,
+            phone,
+        })
 
-    return reply.status(201).send(user)
+        return reply.status(201).send(user)
+    } catch (error) {
+        if (error instanceof Error) {
+            return reply.status(400).send({ message: error.message })
+        }
+
+        return reply
+            .status(500)
+            .send({ message: 'Internal Server Error', error })
+    }
 }

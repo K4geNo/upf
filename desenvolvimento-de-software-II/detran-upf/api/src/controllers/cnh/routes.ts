@@ -11,7 +11,7 @@ export async function cnhRoutes(app: FastifyInstance) {
     app.get('/driverLicenses', findAllDriverLicenseController)
     app.get('/driverLicense/:licenseNumber', findByLicenseNumberController)
     app.get('/driverLicense/user/:userId', findDriverLicenseByUserIdController)
-    app.put('/driverLicense/:licenseNumber', updateDriverLicenseController)
+    app.put('/driverLicense/:driverLicenseId', updateDriverLicenseController)
     app.put(
         '/driverLicense/update-points/:infractionId/:userId',
         updatePointsDriverLicenseController,

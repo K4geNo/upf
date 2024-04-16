@@ -29,17 +29,27 @@ export async function updateVehicleController(
         type,
     } = updateVehicleSchema.parse(request.body)
 
-    const updatedVehicle = await updateVehicleUseCase.execute({
-        data: {
-            brand,
-            color,
-            ipvaPaid,
-            ipvaValue,
-            manufacturingYear,
-            model,
-            type,
-        },
-        vehicleId,
-    })
-    return reply.status(200).send(updatedVehicle)
+    try {
+        const updatedVehicle = await updateVehicleUseCase.execute({
+            data: {
+                brand,
+                color,
+                ipvaPaid,
+                ipvaValue,
+                manufacturingYear,
+                model,
+                type,
+            },
+            vehicleId,
+        })
+        return reply.status(200).send(updatedVehicle)
+    } catch (error) {
+        if (error instanceof Error) {
+            return reply.status(400).send({ message: error.message })
+        }
+
+        return reply
+            .status(500)
+            .send({ message: 'Internal Server Error', error })
+    }
 }

@@ -9,12 +9,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                 String   @id @default(uuid())
   personName         String
   cpf                String   @unique
   addressDescription String?
@@ -32,21 +32,21 @@ model User {
 }
 
 model DriverLicense {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(uuid())
   number    String
   category  String
   validity  DateTime
   points    Int
   createdAt DateTime @default(now())
 
-  userId String @db.ObjectId
+  userId String
   user   User   @relation(fields: [userId], references: [id])
 
   @@map("driver_licenses")
 }
 
 model Vehicle {
-  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                String   @id @default(uuid())
   brand             String
   licensePlate      String
   color             String
@@ -65,22 +65,22 @@ model Vehicle {
 }
 
 model Ipva {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   value       Float
   paymentDate DateTime
   currentYear Int
   createdAt   DateTime @default(now())
 
-  vehicleId String  @db.ObjectId
+  vehicleId String
   vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
 
   @@map("ipvas")
 }
 
 model UserVehicle {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String  @db.ObjectId
-  vehicleId String  @db.ObjectId
+  id        String  @id @default(uuid())
+  userId    String
+  vehicleId String
   user      User    @relation(fields: [userId], references: [id])
   vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
 
@@ -89,9 +89,9 @@ model UserVehicle {
 }
 
 model Infractions {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  vehicleId String   @db.ObjectId
-  userId    String   @db.ObjectId
+  id        String   @id @default(uuid())
+  vehicleId String
+  userId    String
   value     Float
   date      DateTime
   points    Int

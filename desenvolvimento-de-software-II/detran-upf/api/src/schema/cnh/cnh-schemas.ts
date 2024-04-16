@@ -7,8 +7,12 @@ export const registerCnhSchema = z.object({
     validity: z.coerce.date(),
 })
 
-export const cnhNumberParamSchema = z.object({
+export const driverLicenseIdParamSchema = z.object({
     driverLicenseId: z.string(),
+})
+
+export const driverLicenseNumberParamSchema = z.object({
+    licenseNumber: z.string(),
 })
 
 export const cnhUserIdParamSchema = z.object({

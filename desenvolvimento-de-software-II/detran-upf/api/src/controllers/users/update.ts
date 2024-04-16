@@ -14,11 +14,11 @@ export async function updateUserController(
     const prismaUsersRepository = new PrismaUsersRepository()
     const userUpdateUseCase = new UpdateUserUseCase(prismaUsersRepository)
 
-    const { addressDescription, birthDate, email, pcd, personName, phone } =
-        updateUserBodySchema.parse(request.body)
-    const { userId } = updateUserParamsSchema.parse(request.params)
-
     try {
+        const { addressDescription, birthDate, email, pcd, personName, phone } =
+            updateUserBodySchema.parse(request.body)
+        const { userId } = updateUserParamsSchema.parse(request.params)
+
         const user = await userUpdateUseCase.execute({
             data: {
                 birthDate,
